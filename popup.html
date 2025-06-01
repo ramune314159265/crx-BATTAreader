@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="js">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BATTA Reader</title>
+	<style>
+		body {
+			width: 300px;
+		}
+
+		label {
+			margin-right: 8px;
+		}
+
+		input {
+			width: 100%;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		.form_set {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>BATTA Reader</h1>
+	<form action="" id="main_form">
+		<div class="form_set">
+			<label for="sender_name">読み上げる人の名前</label><input type="text" id="sender_name" value="【NANO】Hakase_AU_BATTA">
+		</div>
+		<div class="form_set">
+			<label for="volume">音量</label><input type="range" min="0" max="1" step="0.01" value="1" id="volume">
+		</div>
+		<div class="form_set">
+			<input type="submit" value="読み上げ開始" />
+		</div>
+	</form>
+	<script src="popup.js"></script>
+</body>
+
+</html>

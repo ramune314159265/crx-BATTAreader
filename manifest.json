@@ -26,8 +26,9 @@
 	"host_permissions": [
 		"https://www.youtube.com/*"
 	],
-	"background": {
-		"service_worker": "sw.js"
-	},
-	"action": {}
+	"action": {
+		"default_title": "BATTA Reader",
+		"default_icon": "icon_128.png",
+		"default_popup": "popup.html"
+	}
 }

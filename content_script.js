@@ -1,8 +1,13 @@
+const config = {
+	senderName: '【NANO】Hakase_AU_BATTA',
+	volume: 1
+}
+
 const observer = new MutationObserver((list) => {
 	list.forEach(mutation => {
 		mutation.addedNodes.forEach(node => {
 			const author = node.querySelector('#author-name')
-			if (!author || author.innerText !== '【NANO】Hakase_AU_BATTA') {
+			if (!author || author.innerText !== config.senderName) {
 				return
 			}
 			const messageElement = node.querySelector('#message')
@@ -11,6 +16,8 @@ const observer = new MutationObserver((list) => {
 			}
 			const message = messageElement.innerText
 			const ssu = new SpeechSynthesisUtterance(message)
+			ssu.volume = config.volume
+			ssu.rate = 1.2
 			speechSynthesis.speak(ssu)
 		})
 	})
@@ -34,6 +41,8 @@ const subscribe = () => {
 chrome.runtime.onMessage.addListener(request => {
 	switch (true) {
 		case (request.message === 'start_reading'):
+			config.senderName = request.senderName
+			config.volume = request.volume
 			subscribe()
 			break
 		default:
