@@ -1,4 +1,22 @@
-setTimeout(() => {
+const observer = new MutationObserver((list) => {
+	list.forEach(mutation => {
+		mutation.addedNodes.forEach(node => {
+			const author = node.querySelector('#author-name')
+			if (!author || author.innerText !== '【NANO】Hakase_AU_BATTA') {
+				return
+			}
+			const messageElement = node.querySelector('#message')
+			if (!messageElement) {
+				return
+			}
+			const message = messageElement.innerText
+			const ssu = new SpeechSynthesisUtterance(message)
+			speechSynthesis.speak(ssu)
+		})
+	})
+})
+
+const subscribe = () => {
 	const chatFrame = document.querySelector("#chatframe")
 	if (!chatFrame) {
 		console.log('チャットフレームの取得に失敗しました')
@@ -10,22 +28,15 @@ setTimeout(() => {
 		return
 	}
 
-	const observer = new MutationObserver((list) => {
-		list.forEach(mutation => {
-			mutation.addedNodes.forEach(node => {
-				const author = node.querySelector('#author-name')
-				if (!author || author.innerText !== '【NANO】Hakase_AU_BATTA') {
-					return
-				}
-				const messageElement = node.querySelector('#message')
-				if (!messageElement) {
-					return
-				}
-				const message = messageElement.innerText
-				const ssu = new SpeechSynthesisUtterance(message)
-				speechSynthesis.speak(ssu)
-			})
-		})
-	})
 	observer.observe(chatElement, { childList: true })
-}, 10000)
+}
+
+chrome.runtime.onMessage.addListener(request => {
+	switch (true) {
+		case (request.message === 'start_reading'):
+			subscribe()
+			break
+		default:
+			break
+	}
+})
